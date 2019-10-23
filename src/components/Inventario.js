@@ -152,7 +152,7 @@ class Inventario extends Component {
           <div className='container'>
           <h5>Hay {this.state.inventario.length} elementos en el inventario</h5>
           {
-            Array.apply(null, { length: (48 )}).map((e, i) => (
+            Array.apply(null, { length: (96 )}).map((e, i) => (
             <Slot 
             className='slot' 
             key={String(i)} 
