@@ -1,9 +1,12 @@
 .App {
     height: 100vh;
+    color: #F8F8F8;
 }
 
 .inventory, .droppable {
-    background-color: #040304;
+    background-color: rgba(255, 255, 255, 0.2);
+    background-repeat: none;
+    background-size: cover;
 }
 
 .inventory {
@@ -11,11 +14,30 @@
     overflow: scroll;
     padding-top: 30px;
     padding-bottom: 50px;
+    background-image: url('img/stone3-bkg.png');
+}
+
+.footer-wrapper {
+    background-image: url('img/stone3-bkg.png');
+    background-size: cover;
+    
 }
 
 .footer {
     height: 25vh;
-    background-color: gray;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.header-wrapper {
+    background-image: url('img/stone3-bkg.png');
+    background-size: cover;
+}
+
+.header {
+    background-color: rgba(6, 6, 6, .4);
+    
 }
 
 .droppable:hover {
@@ -31,7 +53,7 @@
     height: 90px;
     float: left;
     /* margin: 2px; */
-    border: 1px solid gray;
+    border: 1px solid #1A1A1A;
     border-radius: 0px;
 }
 
@@ -43,7 +65,10 @@
 .item-img {
     margin-top: 0px;
     padding-top:0px;
-    width:80px;
+    height:80px;
+    width: auto;
+    max-width: 100%;
+    max-height:100%;
 }
 
 .agregar-item-btn {
