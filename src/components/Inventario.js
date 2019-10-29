@@ -6,7 +6,7 @@ import Item from './Item.js';
 import Header from './Header.js';
 import Footer from './Footer.js'; 
 import UploadForm from './Uploadform.js'; 
-import { Button, Modal } from 'reactstrap';
+import { Modal } from 'reactstrap';
 
 class Inventario extends Component {
   constructor(props) {
@@ -26,7 +26,7 @@ class Inventario extends Component {
     });
   }
  
-//Funcion para rellenar de items los slots en el lugar donde fija el state
+//Function to fill slots with items 
   populateSlots = (slotid) => {
       let r = this.state.inventario.filter((item) => item.slotid === slotid)
       if (r.length > 0) {
@@ -44,10 +44,10 @@ class Inventario extends Component {
     }
   }
 
-//Se ejecuta cuando se tira una img en un slot, debe llevar la info a firebase en tiempo real
+//On image drop passes new position to firebase 
   dropDos = (itemId, slot ) => {
     let itemFound = this.state.inventario.filter((item) => item.id == itemId)
-    //Busco el index del item en el state
+    //Search index of item in state
     let indexItem = this.state.inventario.indexOf(itemFound[0])
     //Modify state with new item-position writes to firebase
     let newState = this.state.inventario;
@@ -58,7 +58,7 @@ class Inventario extends Component {
     console.log('DATA WRITTEN')
   }
 
-//Capturo el state inicial de firebase
+//Capture initial state from firebase
   getUserData = () => {
     let that = this;
     let ref = firebase.database().ref('/Inventario');
@@ -69,7 +69,7 @@ class Inventario extends Component {
     console.log('DATA RETRIEVED');
   }
 
-//Paso el state a firebase
+//Pass state to firebase
   writeUserData = (newState) => {
     firebase.database().ref('/Inventario/inventario').set(newState);
     console.log('DATA SAVED');
@@ -77,37 +77,32 @@ class Inventario extends Component {
 
   suboAInventario = (newItem) => {
     let newState = this.state.inventario;
-    console.log(newItem)
     //Edit item
     if (this.state.mode === 'edit') {
       let itemEdited = this.state.inventario.filter((item) => item.id == newItem.id)
       let i = this.state.inventario.indexOf(itemEdited[0])
-      //replace item (edit)
+    //replace item (edit)
       newState[i] = newItem
-      console.log(newState)
-      this.setState({ inventario: newState})
-      this.writeUserData(newState)
-      this.toggle()
+      console.log(newItem)
+      this.setState({itemSelected: newItem})
+    } 
     //Create new item
-    } else {
-      console.log(newItem)
+    else {
       newItem.id = ((newState[newState.length - 1].id) + 1)
-      console.log(newItem)
       newState.push(newItem); 
-      console.log(newState)
-      this.setState({ inventario: newState})
-      this.writeUserData(newState)
-      this.toggle()
     }
+    this.setState({ inventario: newState})
+    this.writeUserData(newState)
+    this.toggle()
   }
 
   showDetails = (e) => {
     //Check if slot has no items
     let isEmpty = document.getElementById(e.target.id).innerHTML === "";
     if (isEmpty === false) {
-      //Search in inventory for selected item
+    //Search in inventory for selected item
       let itemSelected = this.state.inventario.filter((item) => item.id == e.target.id)
-      //Write state with item selected
+    //Write state with item selected
       this.setState({itemSelected: itemSelected[0]})
     } else {
       this.setState({currentEmptySlot: e.target.id})
@@ -135,13 +130,13 @@ class Inventario extends Component {
     //Delete element in the index
     newState.splice(indexItem, 1); 
     this.setState({ inventario: newState})
+    this.setState({ itemSelected: []})
     this.writeUserData(newState)
   }
 
-//Traigo el state de firebase 
+//Capture state from firebase 
   componentDidMount() {
     this.getUserData()
-    // console.log(this.state.idCounter)
   }
 
   render() {
@@ -164,9 +159,8 @@ class Inventario extends Component {
                 this.populateSlots(i)
               }
             </Slot>
-          ))
+            ))
           }
-
           </div>
         </div>
         

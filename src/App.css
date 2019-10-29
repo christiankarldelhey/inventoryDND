@@ -36,8 +36,8 @@
 }
 
 .header {
-    background-color: rgba(6, 6, 6, .4);
-    
+    background-color: rgba(6, 6, 6, .7);
+    color: white;
 }
 
 .droppable:hover {

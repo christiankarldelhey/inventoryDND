@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card } from 'reactstrap';
 import PropTypes from 'prop-types';
-import Item from './Item.js'
 
 
 export default class Slot extends React.Component {

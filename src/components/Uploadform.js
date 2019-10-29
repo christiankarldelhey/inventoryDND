@@ -1,15 +1,8 @@
 import React, {Component} from 'react';
 import '../App.css';
 import firebase from 'firebase';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, Input, Label, FormGroup } from 'reactstrap';
+import { Button, ModalHeader, ModalBody, ModalFooter, Form, Input, Label, FormGroup } from 'reactstrap';
 
-// const initialState = {
-//   url: '',
-//   uploadValue: 0,
-//   description: '',
-//   id: 0,
-//   slotid:0
-// }
 
 class UploadForm extends Component {
   constructor(props) {
@@ -81,33 +74,25 @@ class UploadForm extends Component {
 
 render() {
     return (
-      <div className="">
-        <ModalHeader>Modal title</ModalHeader>
+      <div>
+        <ModalHeader>{this.props.mode === 'edit' ? 'Editar item' : 'Crear item'}</ModalHeader>
           <ModalBody>
             <Form>
               <FormGroup>
                 <Label for="examplePassword">Subi la imagen</Label>
                 <Input type="file" name="file" id="exampleFile" onChange={this.handleUpload} />
                 <progress value={this.state.uploadValue} max='100'></progress>
-                  <img width='150' src={this.state.url} alt=""/>
+                  <img className='col-8' width='150' src={this.state.url} alt=""/>
               </FormGroup>
               <FormGroup>
                 <Label for="description">Descripcion</Label>
                 <Input type="text" name="description" id="description" value={this.state.description} onChange={this.handleInput} placeholder="description" />
               </FormGroup>
-              {/* <FormGroup>
-                <Label for="slotid">Slot id</Label>
-                <Input type="number" name="slotid" id="slotid" value={this.state.slotid} onChange={this.handleNumber} placeholder="slot id" />
-              </FormGroup> */}
-              {/* <FormGroup>
-                <Label for="id">Id</Label>
-                <Input type="number" name="id" id="id" value={this.state.id} onChange={this.handleNumber} placeholder="id" />
-              </FormGroup> */}
             </Form>
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={() => this.props.suboAInventario(this.state)}>Subir item</Button>{' '}
-            <Button color="secondary" onClick={this.props.toggle}>Cancel</Button>
+            <Button color="secondary" onClick={this.props.toggle}>Cancelar</Button>
         </ModalFooter>
       </div>
     )
